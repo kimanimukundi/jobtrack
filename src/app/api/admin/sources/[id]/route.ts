@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createServerClient, createAdminClient } from '@/lib/supabase'
-import { isAdmin, grantAdminAccess } from '@/lib/admin'
+import { isAdmin } from '@/lib/admin'
 import { fetchRSSFeed, scrapeCareerPage, upsertJobs } from '@/lib/discovery'
+
+export const dynamic = 'force-dynamic'
 
 // DELETE /api/admin/sources/[id] - delete a tracked site
 export async function DELETE(

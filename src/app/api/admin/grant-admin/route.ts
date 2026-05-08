@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createServerClient } from '@/lib/supabase'
 import { isAdmin, grantAdminAccess } from '@/lib/admin'
 
+export const dynamic = 'force-dynamic'
+
 // POST /api/admin/grant-admin - grant admin access to a user by email
 export async function POST(req: NextRequest) {
   const serverClient = createServerClient()

@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createServerClient, createAdminClient } from '@/lib/supabase'
 import { isAdmin } from '@/lib/admin'
 
+export const dynamic = 'force-dynamic'
+
 // GET /api/admin/sources - list all sources with check history
 export async function GET(req: NextRequest) {
   const serverClient = createServerClient()
