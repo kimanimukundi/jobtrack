@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-rgb: 18, 18, 18;
+  }
+}
+
+body {
+  color: #000;
+  background: #fff;
+}
+
+/* Ensure all inputs have dark text on white background */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="url"],
+input[type="date"],
+textarea,
+select {
+  color: #000 !important;
+  background-color: #fff !important;
+}
+
+input::placeholder {
+  color: #999;
+}
+
+/* Tag colours */
+.tag-job      { @apply bg-purple-50 text-purple-800 border border-purple-200; }
+.tag-internship { @apply bg-blue-50 text-blue-800 border border-blue-200; }
+.tag-attachment { @apply bg-green-50 text-green-800 border border-green-200; }
+.tag-tender   { @apply bg-amber-50 text-amber-800 border border-amber-200; }
