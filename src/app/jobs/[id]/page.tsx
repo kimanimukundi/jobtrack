@@ -64,8 +64,8 @@ export default function JobDetailPage() {
       .eq('primary_job_id', jobId)
 
     if (dupData) {
-      setDuplicates(dupData.map(d => d.jobs).filter(Boolean))
-    }
+	  setDuplicates(dupData.map((d: any) => d.jobs).filter(Boolean) as Job[])
+	}
 
     setLoading(false)
   }
