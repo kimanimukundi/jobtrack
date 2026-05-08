@@ -1,18 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createServerClient, createAdminClient } from '@/lib/supabase'
-import { isAdmin } from '@/lib/admin'
+import { createAdminClient } from '@/lib/supabase'
 
 export const dynamic = 'force-dynamic'
 
 // GET /api/admin/sources - list all sources with check history
 export async function GET(req: NextRequest) {
-  const serverClient = createServerClient()
-  const { data: { user } } = await serverClient.auth.getUser()
-
-  if (!user || !(await isAdmin(user.id))) {
-    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
-  }
-
   const supabase = createAdminClient()
 
   // Get system sources

@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createServerClient, createAdminClient } from '@/lib/supabase'
-import { isAdmin } from '@/lib/admin'
+import { createAdminClient } from '@/lib/supabase'
 import { fetchRSSFeed, scrapeCareerPage, upsertJobs } from '@/lib/discovery'
 
 export const dynamic = 'force-dynamic'
@@ -10,13 +9,6 @@ export async function DELETE(
   req: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  const serverClient = createServerClient()
-  const { data: { user } } = await serverClient.auth.getUser()
-
-  if (!user || !(await isAdmin(user.id))) {
-    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
-  }
-
   const supabase = createAdminClient()
   const { error } = await supabase
     .from('tracked_sites')
@@ -35,13 +27,6 @@ export async function POST(
   req: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  const serverClient = createServerClient()
-  const { data: { user } } = await serverClient.auth.getUser()
-
-  if (!user || !(await isAdmin(user.id))) {
-    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
-  }
-
   const supabase = createAdminClient()
   const action = new URL(req.url).searchParams.get('action')
 
@@ -95,7 +80,6 @@ export async function POST(
   }
 
   if (action === 'mark_broken') {
-    // Mark a source as broken
     const reason = new URL(req.url).searchParams.get('reason') || 'marked_by_admin'
 
     await supabase
@@ -111,7 +95,6 @@ export async function POST(
   }
 
   if (action === 'ignore_broken') {
-    // Ignore a broken source warning
     await supabase
       .from('broken_sources')
       .update({ is_ignored: true })
